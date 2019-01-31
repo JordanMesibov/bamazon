@@ -48,19 +48,29 @@ const firstPrompt = () => {
         }
       }
     ]).then(
+      transactionAttempt = () => {
+ 
       /* (aa) before (A), create a variable to store vital info
         const chosenProduct = {
           id: productId.input,
           howMany: productQuantity.input
         }
       */
-
+      // (aa)
+      
 
       // (A) first, check to see if the productQuantity.input is greater than the stock_quantity from the products TABLE
       //----if there isn't enough supply, console.log("Sorry, bamazon does not currently have enough of that item to fill your order.") and prevent the sale from occuring!!!!
       //----------------------------------------------------
       // (A)
-
+        // if (err) throw err;
+        
+        let chosenProduct = {
+          id: productId.input,
+          howMany: productQuantity.input
+        }
+        console.log("Chosen Product ID: " + chosenProduct.id);
+        console.log("Chosen amount: " + chosenProduct.howMany);
       
       //----------------------------------------------------
 
@@ -82,5 +92,7 @@ const firstPrompt = () => {
 
 
       //----------------------------------------------------
+    //close the curly bracket of transactionAtempt arrow function below this line.
+    }
     )
 }
