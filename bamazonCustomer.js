@@ -23,17 +23,20 @@ const start = () => {
     if (err) throw err;
     console.log("Welcome to bamazon! We have the following inventory:\n");
     console.log(res);
-    firstPrompt();
+    firstPrompt(res);
   });
 }
-const firstPrompt = () => {
+const firstPrompt = (dbProducts) => {
   inquirer
     .prompt([
       {
         name: "productId",
         message: "What is the ID of the product you are interested in purchasing?",
         type: "input",
-        default: 1
+        default: 1,
+        filter: function (input) {
+          return parseInt(input);
+        }
       },
       {
         name: "productQuantity",
@@ -48,30 +51,34 @@ const firstPrompt = () => {
         }
       }
     ]).then(
-      transactionAttempt = () => {
- 
-      /* (aa) before (A), create a variable to store vital info
-        const chosenProduct = {
-          id: productId.input,
-          howMany: productQuantity.input
-        }
-      */
-      // (aa)
-      
-
+      function(userPick) {
       // (A) first, check to see if the productQuantity.input is greater than the stock_quantity from the products TABLE
       //----if there isn't enough supply, console.log("Sorry, bamazon does not currently have enough of that item to fill your order.") and prevent the sale from occuring!!!!
       //----------------------------------------------------
       // (A)
         // if (err) throw err;
         
-        let chosenProduct = {
-          id: productId.input,
-          howMany: productQuantity.input
+        // let chosenProduct = {
+        //   id: productId.input,
+        //   howMany: productQuantity.input
+        // }
+        console.log("Chosen Product ID: " + userPick.productId);
+        console.log("Chosen amount: " + userPick.productQuantity);
+        
+        // find what product you are looking to purchase
+        const productPicked = dbProducts.find(product => item_id === userPick.productId);
+        console.log(productPicked);
+
+        // if userPick.productQuantity is greater than productPicked's quantity in stock, then don't let user purchase
+        if (userPick.productQuanity > productPicked) {
+          console.log("Sorry, bamazon does not have enough of that product in stock to fill your order! Try a smaller quantity or a different product.");
+          return false;
         }
-        console.log("Chosen Product ID: " + chosenProduct.id);
-        console.log("Chosen amount: " + chosenProduct.howMany);
-      
+        // else let user purchase, update the product to have a stock quantity of the current quantity - userPick.productQuantity
+        else {
+          
+          dbProducts.query(`UPDATE products SET stock_quantity = ${stock_quantity - productQuantity.input} WHERE item_id = ${userPick.productId}`);
+        }
       //----------------------------------------------------
 
       // (B) then, console log what the user has selected to perform, and give them a total price for the transaction((parseInt(price) * productQuantity.input)
