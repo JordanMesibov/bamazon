@@ -47,5 +47,40 @@ const firstPrompt = () => {
           return parseInt(input);
         }
       }
-    ]).then()
+    ]).then(
+      /* (aa) before (A), create a variable to store vital info
+        const chosenProduct = {
+          id: productId.input,
+          howMany: productQuantity.input
+        }
+      */
+
+
+      // (A) first, check to see if the productQuantity.input is greater than the stock_quantity from the products TABLE
+      //----if there isn't enough supply, console.log("Sorry, bamazon does not currently have enough of that item to fill your order.") and prevent the sale from occuring!!!!
+      //----------------------------------------------------
+      // (A)
+
+      
+      //----------------------------------------------------
+
+      // (B) then, console log what the user has selected to perform, and give them a total price for the transaction((parseInt(price) * productQuantity.input)
+      //----------------------------------------------------
+      // (B)
+
+
+      //----------------------------------------------------
+      // (C) then, update the products table to reflect the new product inventory (subtract the productQuantity.input from the stock_quantity of that specific item.)
+      //----------------------------------------------------
+      // (C)
+
+
+      //----------------------------------------------------
+      // (D) finally, provide the user with a console.log("Congratulations! Your order was successful. We hope you had a pleasant experience with bamazon. Have a wonderful day!");
+      //----------------------------------------------------
+      // (D)
+
+
+      //----------------------------------------------------
+    )
 }
