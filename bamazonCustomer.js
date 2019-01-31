@@ -18,3 +18,10 @@ db.connect(err => {
   start();
 });
 
+const start = () => {
+  db.query("SELECT * FROM products", function (err, res) {
+    if (err) throw err;
+    console.log("Welcome to bamazon! We have the following inventory:\n");
+    console.log(res);
+  });
+}
