@@ -23,5 +23,29 @@ const start = () => {
     if (err) throw err;
     console.log("Welcome to bamazon! We have the following inventory:\n");
     console.log(res);
+    firstPrompt();
   });
+}
+const firstPrompt = () => {
+  inquirer
+    .prompt([
+      {
+        name: "productId",
+        message: "What is the ID of the product you are interested in purchasing?",
+        type: "input",
+        default: 1
+      },
+      {
+        name: "productQuantity",
+        message: "How many units of the product would you like to purchase?",
+        type: "input",
+        default: 1,
+        validate: function (input) {
+          return !isNaN(input);
+        },
+        filter: function (input) {
+          return parseInt(input);
+        }
+      }
+    ]).then()
 }
