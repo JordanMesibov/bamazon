@@ -12,6 +12,6 @@ VALUES
   ("Glockenspiel", "Musical Instruments", 99.99, 2),
   ("Trombone", "Musical Instruments", 249.99, 3),
   ("Destiny 2", "Video Games", 59.99, 40),
-  ("Megaman Battle Network 2", "Video Games", 9.99, 5)
+  ("Megaman Battle Network 2", "Video Games", 9.99, 5);
 
 SELECT * FROM products;
