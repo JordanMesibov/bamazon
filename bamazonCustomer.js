@@ -96,7 +96,7 @@ function matchProduct() {
         bag.total = bag.unitprice * bag.quantity;
         bag.updatedStockQuantity = bag.stockQuantity - bag.quantity;
         // console.log(bag);
-        function confirmPurchase();
+        confirmPurchase();
       }
       );
       // console.log(query.sql);
@@ -109,19 +109,27 @@ function confirmPurchase() {
     .prompt([
       {
         name: "confirmPurchase",
-        type: "confirm",
+        type: "list",
         message: `Are you sure you wish to purchase ${bag.quantity} units of ${bag.product}?`,
-        choices: ["[YES]", "[NO]"]
+        choices: ["YES", "NO"]
       }
     ]).then(function(response) {
-      if (response.confirmPurchase === "[YES]") {
+      if (response.confirmPurchase === "YES") {
         console.log(`
-        
-        `)
+        MAKE A RECEIPT TO SHOW THE USER HERE ( USING BAG.BLAHBLAHBLAH )
+        `);
+      updateSQLdb();
+      db.end();
+      } else if (response.confirmPurchase === "NO") {
+        console.log("FINE, BE THAT WAY. I HATE YOU!!!!");
+        db.end();
       }
-    })
+    });
 }
 
+function updateSQLdb() {
+  console.log("REMEMBER TO UPDATE MY SQL DB USING UPDATE COMMAND");
+}
 
 // (A) first, check to see if the productQuantity.input is greater than the stock_quantity from the products TABLE
 //----if there isn't enough supply, console.log("Sorry, bamazon does not currently have enough of that item to fill your order.") and prevent the sale from occuring!!!!
