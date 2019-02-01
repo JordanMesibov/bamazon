@@ -72,7 +72,7 @@ const firstPrompt = (dbProducts) => {
         // console.log("Chosen amount: " + response.productQuantity);
         bag.itemId = response.productId;
         bag.quantity = response.productQuantity;
-        console.log(bag);
+        // console.log(bag);
 
         // grab the MySQL product and update its inventory.
         matchProduct();
@@ -80,8 +80,46 @@ const firstPrompt = (dbProducts) => {
     )
 }
 function matchProduct() {
-  console.log("we out here");
-  db.query("SELECT * FROM products WHERE ")
+
+    const newObject = db.query(
+      "SELECT * FROM products WHere ?", [{
+        item_id: bag.itemId
+      }], function(err, res) {
+        if (err) throw err;
+        // console.log("This is the result: " + res);
+        // console.log(res);
+        let itemPicked = res[0];
+        // console.log(itemPicked.product_name);
+        bag.product = itemPicked.product_name;
+        bag.unitprice = itemPicked.price;
+        bag.stockQuantity = itemPicked.stock_quantity;
+        bag.total = bag.unitprice * bag.quantity;
+        bag.updatedStockQuantity = bag.stockQuantity - bag.quantity;
+        // console.log(bag);
+        function confirmPurchase();
+      }
+      );
+      // console.log(query.sql);
+    // console.log(newObject.sql);
+
+}
+
+function confirmPurchase() {
+  inquirer
+    .prompt([
+      {
+        name: "confirmPurchase",
+        type: "confirm",
+        message: `Are you sure you wish to purchase ${bag.quantity} units of ${bag.product}?`,
+        choices: ["[YES]", "[NO]"]
+      }
+    ]).then(function(response) {
+      if (response.confirmPurchase === "[YES]") {
+        console.log(`
+        
+        `)
+      }
+    })
 }
 
 
